@@ -1,0 +1,135 @@
+bdt codes-
+
+*Aggregate-*
+db.orders.aggregate( [
+   // Stage 1: Filter pizza order documents by pizza size
+   {
+      $match: { size: "medium" }
+   },
+   // Stage 2: Group remaining documents by pizza name and calculate total quantity
+   {
+      $group: { _id: "$name", totalQuantity: { $sum: "$quantity" } }
+   }
+] )
+
+*map-reduce-*
+var mapFunction1 = function() {
+   emit(this.cust_id, this.price);
+};
+
+var reduceFunction1 = function(keyCustId, valuesPrices) {
+   return Array.sum(valuesPrices);
+};
+
+db.orders.mapReduce(
+   mapFunction1,
+   reduceFunction1,
+   { out: "map_reduce_example" }
+)
+
+*pymongo*-
+import pymongo
+c1=pymongo.MongoClient("string")
+print(c1.list_database_names())
+from pymongo import MongoClient
+client=MongoClient('localhost', 27017)
+db=client['Niha']
+coll=db['stud']
+
+n=input("Enter the details of number of students to be added:")
+nn=int(n)
+print("Enter student details")
+for i in range(0,nn):
+  id=input("Enter student id")
+  name=input("Name: ")
+  branch=input("Branch")
+  age=input("Age: ")
+  sub1Name=input("Enter subject 1 name")
+  sub1Score=input("Enter subject1 score")
+  sub2Name=input("Enter subject 2 name")
+  sub2Score=input("Enter subject2 score")
+  
+d={"id": id,"name": name, "branch": branch, "age": age,
+  "address": {"city": "Mumbai", "pincode": 410001},
+  "subjects": [{"name": "TOC", "score": 89},
+    { "name": "CN","score": 99 },
+    {"name": "DBMS", "score": 99 }],
+ "interests": ["Reading","Coding","Music"]}
+
+print(d)
+
+coll=db['stud']
+r=coll.insert_one(d)
+
+*hadoop*-
+hdfs dfs:
+
+-ls
+-cat
+-touchz
+-get
+-put
+-moveToLocal
+-moveFromLocal
+-cp
+-mv
+-mkdir
+
+*pig*-
+PIG Commands
+1. fs -ls
+Lists all the files
+2. clear
+Clears the shell
+3. history
+Shows all the executed commands thus far
+4. database = LOAD ‘file_path’
+USING PigStorage(‘.’)
+Loads the required file in the variable named database
+Shows the file
+5. STORE Data INTO ‘file_path’ USING PigStorage(‘.’)
+Stores the data from file_path into variable named Data
+
+*hive*-
+Hive DDL Commands
+create database
+
+drop database
+
+create table
+
+drop table
+
+alter table
+
+create index
+
+create views
+
+Hive DML Commands
+Select
+
+Where
+
+Group By
+
+Order By
+
+Load Data
+
+Join:
+
+Inner Join
+Left Outer Join
+Right Outer Join
+Full Outer Join
+
+*hdfs*-
+hdfs dfs -mkdir \bdt
+hdfs dfs -ls \bdt
+hdfs dfs -put file.txt bdt/
+hdfs dfs -lsr \bdt
+hdfs dfs -mkdir bdt_copied
+hdfs dfs -cp \bdt \bdt_copied
+hdfs dfs -lsr \bdt_copied
+hdfs dfs -rmr \bdt_copied
